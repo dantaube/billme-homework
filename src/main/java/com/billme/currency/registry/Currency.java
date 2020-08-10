@@ -1,14 +1,13 @@
-package com.billme.currency;
+package com.billme.currency.registry;
 
-import org.hibernate.annotations.Immutable;
-import org.hibernate.annotations.NaturalId;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Objects;
-import java.util.StringJoiner;
+
+import org.hibernate.annotations.Immutable;
 
 @Immutable
 @Entity
@@ -25,8 +24,17 @@ public class Currency {
     @Column(name = "SCALE", nullable = false)
     private int scale;
 
-    @Column(name = "CODE", nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
+
+    public Currency() {}
+    
+    public Currency(String code, int number, int scale, String name) {
+        this.code = code;
+        this.number = number;
+        this.scale = scale;
+        this.name = name;
+    }
 
     public int getNumber() {
         return number;
@@ -75,11 +83,17 @@ public class Currency {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Currency.class.getSimpleName() + "[", "]")
-                .add("code='" + code + "'")
-                .add("number=" + number)
-                .add("scale=" + scale)
-                .add("name='" + name + "'")
-                .toString();
+        StringBuilder builder = new StringBuilder();
+        builder.append("Currency [code=");
+        builder.append(code);
+        builder.append(", number=");
+        builder.append(number);
+        builder.append(", scale=");
+        builder.append(scale);
+        builder.append(", name=");
+        builder.append(name);
+        builder.append("]");
+        return builder.toString();
     }
+    
 }

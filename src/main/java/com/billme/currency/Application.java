@@ -1,4 +1,4 @@
-package com.billme.currency.app;
+package com.billme.currency;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

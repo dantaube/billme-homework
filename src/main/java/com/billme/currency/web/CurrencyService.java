@@ -1,9 +1,10 @@
-package com.billme.currency.webservice;
+package com.billme.currency.web;
 
-import com.billme.currency.Currency;
-import com.billme.currency.CurrencyRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.billme.currency.registry.Currency;
+import com.billme.currency.registry.CurrencyRegistry;
 
 @Service
 class CurrencyService {
