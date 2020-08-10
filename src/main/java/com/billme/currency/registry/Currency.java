@@ -19,36 +19,36 @@ public class Currency {
     private String code;
 
     @Column(name = "NUMBER", unique = true, nullable = false)
-    private int number;
+    private Integer number;
 
-    @Column(name = "SCALE", nullable = false)
-    private int scale;
+    @Column(name = "SCALE", nullable = true)
+    private Integer scale;
 
     @Column(name = "NAME", nullable = false)
     private String name;
 
     public Currency() {}
     
-    public Currency(String code, int number, int scale, String name) {
+    public Currency(String code, Integer number, Integer scale, String name) {
         this.code = code;
         this.number = number;
         this.scale = scale;
         this.name = name;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 
-    public int getScale() {
+    public Integer getScale() {
         return scale;
     }
 
-    public void setScale(int scale) {
+    public void setScale(Integer scale) {
         this.scale = scale;
     }
 

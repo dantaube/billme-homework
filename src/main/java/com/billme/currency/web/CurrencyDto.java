@@ -8,15 +8,15 @@ public class CurrencyDto {
     private final String code;
 
     @JsonProperty("Num")
-    private final int    number;
+    private final Integer    number;
 
     @JsonProperty("E")
-    private final int    scale;
+    private final Integer scale;
 
     @JsonProperty("Currency")
     private final String name;
 
-    public CurrencyDto(String code, int number, int scale, String name) {
+    public CurrencyDto(String code, Integer number, Integer scale, String name) {
         this.code = code;
         this.number = number;
         this.scale = scale;
@@ -27,11 +27,11 @@ public class CurrencyDto {
         return code;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public int getScale() {
+    public Integer getScale() {
         return scale;
     }
 
