@@ -3,7 +3,11 @@ package com.billme.currency.logger;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface RequestAttemptDao extends JpaRepository<RequestAttempt, Long> {
+public interface RequestAttemptDao extends JpaRepository<LogEvent, Long> {
+
+    List<LogEvent> findAllByOrderByIdAsc();
     
 }

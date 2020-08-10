@@ -8,8 +8,8 @@
 </head>
 
 <body>
-    <div th:switch="${requestAttemps}">
-    <h2 th:case="null">No client requests!</h2>
+    <div th:switch="${logEvents}">
+    <h2 th:case="null">There are no client requests yet!</h2>
         <div th:case="*">
             <h2>Client requests</h2>
             <table>
@@ -21,10 +21,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tr th:each="requestAttempt : ${requestAttemps}">
-                    <td th:text="${requestAttempt.timestamp}"></td>
-                    <td th:text="${requestAttempt.currencyCode}"></td>
-                    <td th:text="${requestAttempt.clientAddress}"></td>
+                <tr th:each="logEvent : ${logEvent}">
+                    <td th:text="${logEvent.dateTime}"></td>
+                    <td th:text="${logEvent.currencyCode}"></td>
+                    <td th:text="${logEvent.clientAddress}"></td>
                 </tr>
             </tbody>
         </table>
