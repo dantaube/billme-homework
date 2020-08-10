@@ -22,6 +22,7 @@ public class CurrencyRegistry {
 
     @PostConstruct
     void load() throws IOException {
+        LOG.info("Loading currencies from Wiki page...");
         parser.parse().forEach(currency -> dao.save(currency));
         LOG.info("Total currencies loaded: {}", dao.count());
     }

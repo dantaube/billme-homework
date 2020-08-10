@@ -11,10 +11,7 @@ public class ApplicationConfig {
 
     @Bean
     static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        PropertySourcesPlaceholderConfigurer propertyConfigurer = new PropertySourcesPlaceholderConfigurer();
-        propertyConfigurer.setTrimValues(true);
-        propertyConfigurer.setNullValue("null");
-        return propertyConfigurer;
+        return new PropertySourcesPlaceholderConfigurer();
     }
 
 }

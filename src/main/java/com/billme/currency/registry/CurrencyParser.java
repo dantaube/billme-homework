@@ -22,7 +22,6 @@ class CurrencyParser {
     private String              sourceUrl;
 
     List<Currency> parse() throws IOException {
-        LOG.info("Loading currencies from {}...", sourceUrl);
         Document doc = Jsoup.connect(sourceUrl).get();
         Elements headers = doc.getElementsByTag("h2");
         for (int i = 0; i < headers.size(); i++) {
