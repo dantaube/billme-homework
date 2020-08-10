@@ -1,4 +1,4 @@
-package com.billme.currency.web;
+package com.billme.currency.registry;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

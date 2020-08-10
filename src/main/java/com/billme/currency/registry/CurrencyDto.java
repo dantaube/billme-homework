@@ -1,4 +1,4 @@
-package com.billme.currency.web;
+package com.billme.currency.registry;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

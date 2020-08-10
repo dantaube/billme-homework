@@ -1,10 +1,7 @@
-package com.billme.currency.web;
+package com.billme.currency.registry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.billme.currency.registry.Currency;
-import com.billme.currency.registry.CurrencyRegistry;
 
 @Service
 class CurrencyService {
@@ -20,7 +17,7 @@ class CurrencyService {
         return toDto(currency);
     }
 
-    protected CurrencyDto toDto(Currency currency) {
+    private CurrencyDto toDto(Currency currency) {
         return new CurrencyDto(currency.getCode(), currency.getNumber(), currency.getScale(), currency.getName());
     }
 

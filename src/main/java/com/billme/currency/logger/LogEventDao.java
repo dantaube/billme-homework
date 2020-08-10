@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RequestAttemptDao extends JpaRepository<LogEvent, Long> {
+public interface LogEventDao extends JpaRepository<LogEvent, Long> {
 
     List<LogEvent> findAllByOrderByIdAsc();
     

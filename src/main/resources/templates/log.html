@@ -9,9 +9,9 @@
 
 <body>
     <div th:switch="${logEvents}">
-    <h2 th:case="null">There are no client requests yet!</h2>
+    <h2 th:case="null">No log events!</h2>
         <div th:case="*">
-            <h2>Client requests</h2>
+            <h2>Request Log</h2>
             <table>
                 <thead>
                     <tr>
@@ -21,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tr th:each="logEvent : ${logEvent}">
+                <tr th:each="logEvent : ${logEvents}">
                     <td th:text="${logEvent.dateTime}"></td>
                     <td th:text="${logEvent.currencyCode}"></td>
                     <td th:text="${logEvent.clientAddress}"></td>

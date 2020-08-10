@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "REQUEST_ATTEMPT")
-public class RequestAttempt {
+@Table(name = "LOG_EVENT")
+public class LogEvent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +28,10 @@ public class RequestAttempt {
     @Column(name = "CLIENT_ADDRESS", nullable = true)
     private String clientAddress;
 
-    public RequestAttempt(String currencyCode, String clientAddress) {
+    public LogEvent() {
+    }
+
+    public LogEvent(String currencyCode, String clientAddress) {
         this.timestamp = System.currentTimeMillis();
         this.currencyCode = currencyCode;
         this.clientAddress = clientAddress;
@@ -70,7 +73,7 @@ public class RequestAttempt {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RequestAttempt that = (RequestAttempt) o;
+        LogEvent that = (LogEvent) o;
         return id == that.id;
     }
 
@@ -82,9 +85,7 @@ public class RequestAttempt {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("RequestLog [id=");
-        builder.append(id);
-        builder.append(", timestamp=");
+        builder.append("LogEvent [timestamp=");
         builder.append(Instant.ofEpochMilli(timestamp));
         builder.append(", currencyCode=");
         builder.append(currencyCode);

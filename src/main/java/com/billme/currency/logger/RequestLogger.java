@@ -5,18 +5,23 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RequestLogger {
 
     private static final Logger LOG = LoggerFactory.getLogger(RequestLogger.class);
 
     @Autowired
-    private RequestAttemptDao       dao;
+    private LogEventDao dao;
 
-    public void logRequestAttempt(String currencyCode, String clientAddress) {
-        RequestAttempt log = new RequestAttempt(currencyCode, clientAddress);
-        LOG.info("New client request: {}", log);
-        dao.save(log);
+    public void logRequestAttempt(LogEvent logEvent) {
+        LOG.info("New client request: {}", logEvent);
+        dao.save(logEvent);
+    }
+
+    public List<LogEvent> getLogEvents() {
+        return dao.findAllByOrderByIdAsc();
     }
 
 }
