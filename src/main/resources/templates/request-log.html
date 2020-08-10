@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Currency Registry Request Log</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <div th:switch="${requestAttemps}">
+    <h2 th:case="null">No client requests!</h2>
+        <div th:case="*">
+            <h2>Client requests</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date/Time</th>
+                        <th>Currency Code</th>
+                        <th>Client IP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="requestAttempt : ${requestAttemps}">
+                    <td th:text="${requestAttempt.timestamp}"></td>
+                    <td th:text="${requestAttempt.currencyCode}"></td>
+                    <td th:text="${requestAttempt.clientAddress}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

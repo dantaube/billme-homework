@@ -1,4 +1,4 @@
-package com.billme.currency.log;
+package com.billme.currency.logger;
 
 import java.time.Instant;
 
@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "REQUEST_LOG")
-public class RequestLog {
+@Table(name = "REQUEST_ATTEMPT")
+public class RequestAttempt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,7 +27,7 @@ public class RequestLog {
     @Column(name = "CLIENT_ADDRESS", nullable = true)
     private String clientAddress;
 
-    public RequestLog(String currencyCode, String clientAddress) {
+    public RequestAttempt(String currencyCode, String clientAddress) {
         this.timestamp = System.currentTimeMillis();
         this.currencyCode = currencyCode;
         this.clientAddress = clientAddress;

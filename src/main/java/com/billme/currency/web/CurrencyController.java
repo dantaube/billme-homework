@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.billme.currency.log.RequestLogger;
+import com.billme.currency.logger.RequestLogger;
 
 @RestController
 class CurrencyController {

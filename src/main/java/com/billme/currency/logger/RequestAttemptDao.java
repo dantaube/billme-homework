@@ -1,9 +1,9 @@
-package com.billme.currency.log;
+package com.billme.currency.logger;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RequestLogDao extends JpaRepository<RequestLog, Long> {
+public interface RequestAttemptDao extends JpaRepository<RequestAttempt, Long> {
     
 }

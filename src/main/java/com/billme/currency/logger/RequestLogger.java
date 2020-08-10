@@ -1,4 +1,4 @@
-package com.billme.currency.log;
+package com.billme.currency.logger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,10 +11,10 @@ public class RequestLogger {
     private static final Logger LOG = LoggerFactory.getLogger(RequestLogger.class);
 
     @Autowired
-    private RequestLogDao       dao;
+    private RequestAttemptDao       dao;
 
     public void logRequestAttempt(String currencyCode, String clientAddress) {
-        RequestLog log = new RequestLog(currencyCode, clientAddress);
+        RequestAttempt log = new RequestAttempt(currencyCode, clientAddress);
         LOG.info("New client request: {}", log);
         dao.save(log);
     }
