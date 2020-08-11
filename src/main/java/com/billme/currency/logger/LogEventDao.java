@@ -8,6 +8,6 @@ import java.util.List;
 @Repository
 public interface LogEventDao extends JpaRepository<LogEvent, Long> {
 
-    List<LogEvent> findAllByOrderByIdAsc();
+    List<LogEvent> findAllByOrderByIdDesc();
     
 }

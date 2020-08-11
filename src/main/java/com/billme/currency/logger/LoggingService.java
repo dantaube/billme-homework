@@ -1,33 +1,34 @@
 package com.billme.currency.logger;
 
-import com.billme.currency.logger.LogEvent;
-import com.billme.currency.logger.LogEventDto;
-import com.billme.currency.logger.RequestLogger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.time.Instant;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 @Service
 public class LoggingService {
 
-    @Autowired
-    private RequestLogger requestLogger;
+    private static final Logger LOG = LoggerFactory.getLogger(LoggingService.class);
 
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS").withZone(ZoneId.systemDefault());
+    @Autowired
+    private DateTimeFormatter   formatter;
+
+    @Autowired
+    private LogEventDao         dao;
 
     public void logEvent(String currencyCode, String clientAddress) {
-        requestLogger.logRequestAttempt(new LogEvent(currencyCode, clientAddress));
+        LogEvent logEvent = new LogEvent(currencyCode, clientAddress);
+        LOG.info("New client request: {}", logEvent);
+        dao.save(logEvent);
     }
 
     public List<LogEventDto> getLogEvents() {
-        return requestLogger.
-                getLogEvents().
-                stream().
+        return dao.findAllByOrderByIdDesc().stream().
                 map(logEvent -> toDto(logEvent)).
                 collect(Collectors.toList());
     }
