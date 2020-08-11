@@ -3,6 +3,8 @@ package com.billme.currency.registry;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,18 +23,26 @@ public class CurrencyController {
 
     @GetMapping("currencies/{code}")
     public CurrencyDto getCurrency(@PathVariable String code, HttpServletRequest httpRequest) {
+        CurrencyDto currency = service.getCurrency(code);
         loggingService.logEvent(code, httpRequest.getRemoteAddr());
-        return service.getCurrency(code);
+        return currency;
     }
 
-    @ExceptionHandler
-    public void handleException(Exception exception, HttpServletRequest httpRequest) throws Exception {
+    @ExceptionHandler()
+    public ResponseEntity<Object> handleException(Exception exception, HttpServletRequest httpRequest) throws Exception {
         loggingService.logEvent(extractCurrencyCode(httpRequest.getRequestURI()), httpRequest.getRemoteAddr());
-        throw new Exception(exception);
+        if (exception instanceof InvalidCurrencyCodeException) {
+            throw exception;
+        }
+        return buildServerErrorResponse(exception.getMessage());
     }
 
     private String extractCurrencyCode(String uri) {
         return uri.substring(uri.lastIndexOf('/') + 1);
+    }
+
+    private ResponseEntity<Object> buildServerErrorResponse(String error) {
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
