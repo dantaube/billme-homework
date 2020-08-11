@@ -34,6 +34,10 @@ public class LoggingService {
         return dao.findAllByOrderByIdDesc().stream().map(logEvent -> toDto(logEvent)).collect(Collectors.toList());
     }
 
+    public void clean() {
+        dao.deleteAll();
+    }
+
     private LogEventDto toDto(LogEvent logEvent) {
         Instant dateTime = Instant.ofEpochMilli(logEvent.getTimestamp());
         return new LogEventDto(formatter.format(dateTime), logEvent.getCurrencyCode(), logEvent.getClientAddress());

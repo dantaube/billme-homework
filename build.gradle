@@ -23,12 +23,6 @@ dependencies {
     implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
 
     runtime 'com.h2database:h2:1.4.200'
-
     
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.3.2.RELEASE'
-    //testImplementation 'org.testng:testng:7.1.1'
-}
-
-test {
-    useTestNG()
 }
