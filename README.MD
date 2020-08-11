@@ -1,4 +1,4 @@
-#Currency Registry
+# Currency Registry
 
 Simple REST API service which returns currency data by its ISO_4217 alphabetic code.
 
@@ -12,4 +12,4 @@ gradle run
 
 http://localhost:8080/currencies/{code}
 
-http://loclahost:8080/log
+http://localhost:8080/log
