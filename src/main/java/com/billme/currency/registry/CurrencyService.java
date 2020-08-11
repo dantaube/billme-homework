@@ -3,6 +3,8 @@ package com.billme.currency.registry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.billme.currency.registry.errors.InvalidCurrencyCodeException;
+
 @Service
 class CurrencyService {
 

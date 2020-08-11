@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.billme.currency.logger.LoggingService;
+import com.billme.currency.registry.errors.InvalidCurrencyCodeException;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(CurrencyController.class)

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.billme.currency.logger.LoggingService;
+import com.billme.currency.registry.errors.CurrencyRegistryError;
+import com.billme.currency.registry.errors.InvalidCurrencyCodeException;
 
 @RestController
 public class CurrencyController {
@@ -31,7 +33,7 @@ public class CurrencyController {
     @ExceptionHandler()
     public ResponseEntity<Object> handleException(Exception exception, HttpServletRequest httpRequest) throws Exception {
         loggingService.logEvent(extractCurrencyCode(httpRequest.getRequestURI()), httpRequest.getRemoteAddr());
-        if (exception instanceof InvalidCurrencyCodeException) {
+        if (exception instanceof CurrencyRegistryError) {
             throw exception;
         }
         return buildServerErrorResponse(exception.getMessage());
