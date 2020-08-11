@@ -31,7 +31,7 @@ public class CurrencyControllerTest {
     private LoggingService loggingService;
     
     @Test
-    public void getCurrencyTest200() throws Exception {
+    public void getCurrencyOkTest() throws Exception {
         Mockito.when(service.getCurrency("EUR")).thenReturn(new CurrencyDto("EUR", 123, 2, "Euro"));        
 
         mvc.perform(MockMvcRequestBuilders.get("/currencies/{currencyCode}", "EUR").with(remoteAddress("0.0.0.0"))
@@ -47,19 +47,19 @@ public class CurrencyControllerTest {
     }
 
     @Test
-    public void getCurrencyTest404() throws Exception {
-        Mockito.when(service.getCurrency("LAT")).thenThrow(new InvalidCurrencyCodeException("LAT"));       
+    public void getCurrencyNotFoundTest() throws Exception {
+        Mockito.when(service.getCurrency("LVL")).thenThrow(new InvalidCurrencyCodeException("LVL"));       
 
-        mvc.perform(MockMvcRequestBuilders.get("/currencies/{currencyCode}", "LAT").with(remoteAddress("0.0.0.0"))
+        mvc.perform(MockMvcRequestBuilders.get("/currencies/{currencyCode}", "LVL").with(remoteAddress("0.0.0.0"))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
                 .andReturn();
         
-        Mockito.verify(loggingService).logEvent("LAT", "0.0.0.0");
+        Mockito.verify(loggingService).logEvent("LVL", "0.0.0.0");
     }
     
     @Test
-    public void getCurrencyTest500() throws Exception {
+    public void getCurrencyUnexpectedErrorTest() throws Exception {
         Mockito.when(service.getCurrency("USD")).thenThrow(new RuntimeException("Unexpected error"));       
 
         mvc.perform(MockMvcRequestBuilders.get("/currencies/{currencyCode}", "USD").with(remoteAddress("0.0.0.0"))

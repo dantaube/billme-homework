@@ -15,11 +15,14 @@ public class LoggingService {
 
     private static final Logger LOG = LoggerFactory.getLogger(LoggingService.class);
 
-    @Autowired
+    private LogEventDao         dao;
+
     private DateTimeFormatter   formatter;
 
-    @Autowired
-    private LogEventDao         dao;
+    public LoggingService(@Autowired LogEventDao dao, @Autowired DateTimeFormatter formatter) {
+        this.dao = dao;
+        this.formatter = formatter;
+    }
 
     public void logEvent(String currencyCode, String clientAddress) {
         LogEvent logEvent = new LogEvent(currencyCode, clientAddress);
@@ -28,9 +31,7 @@ public class LoggingService {
     }
 
     public List<LogEventDto> getLogEvents() {
-        return dao.findAllByOrderByIdDesc().stream().
-                map(logEvent -> toDto(logEvent)).
-                collect(Collectors.toList());
+        return dao.findAllByOrderByIdDesc().stream().map(logEvent -> toDto(logEvent)).collect(Collectors.toList());
     }
 
     private LogEventDto toDto(LogEvent logEvent) {

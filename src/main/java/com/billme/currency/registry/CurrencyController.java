@@ -12,25 +12,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.billme.currency.logger.LoggingService;
 import com.billme.currency.registry.errors.CurrencyRegistryError;
-import com.billme.currency.registry.errors.InvalidCurrencyCodeException;
 
 @RestController
 public class CurrencyController {
 
-    @Autowired
-    private CurrencyService service;
+    private CurrencyService currencyService;
 
-    @Autowired
     private LoggingService  loggingService;
+
+    public CurrencyController(@Autowired CurrencyService currencyService, @Autowired LoggingService loggingService) {
+        this.currencyService = currencyService;
+        this.loggingService = loggingService;
+    }
 
     @GetMapping("currencies/{code}")
     public CurrencyDto getCurrency(@PathVariable String code, HttpServletRequest httpRequest) {
-        CurrencyDto currency = service.getCurrency(code);
+        CurrencyDto currency = currencyService.getCurrency(code);
         loggingService.logEvent(code, httpRequest.getRemoteAddr());
         return currency;
     }
 
-    @ExceptionHandler()
+    @ExceptionHandler
     public ResponseEntity<Object> handleException(Exception exception, HttpServletRequest httpRequest) throws Exception {
         loggingService.logEvent(extractCurrencyCode(httpRequest.getRequestURI()), httpRequest.getRemoteAddr());
         if (exception instanceof CurrencyRegistryError) {

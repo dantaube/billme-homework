@@ -1,7 +1,7 @@
 package com.billme.currency.registry;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.jsoup.Jsoup;
@@ -13,24 +13,33 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.billme.currency.registry.errors.CurrencyRegistryError;
+
 @Component
 class CurrencyParser {
 
     private static final Logger LOG = LoggerFactory.getLogger(CurrencyParser.class);
 
-    @Value("${currency.source.url}")
     private String              sourceUrl;
 
-    List<Currency> parse() throws IOException {
-        Document doc = Jsoup.connect(sourceUrl).get();
-        Elements headers = doc.getElementsByTag("h2");
-        for (int i = 0; i < headers.size(); i++) {
-            Element header = headers.get(i);
-            if (header.text().startsWith("Active codes")) {
-                return parseTable(header.nextElementSibling().nextElementSibling());
+    public CurrencyParser(@Value("${currency.source.url}") String sourceUrl) {
+        this.sourceUrl = sourceUrl;
+    }
+
+    List<Currency> readWikiPage() throws CurrencyRegistryError {
+        try {
+            Document doc = Jsoup.connect(sourceUrl).get();
+            Elements headers = doc.getElementsByTag("h2");
+            for (int i = 0; i < headers.size(); i++) {
+                Element header = headers.get(i);
+                if (header.text().startsWith("Active codes")) {
+                    return parseTable(header.nextElementSibling().nextElementSibling());
+                }
             }
+        } catch (Exception e) {
+            throw new CurrencyRegistryError("Failed to read currencies from Wiki page!", e);
         }
-        throw new RuntimeException("Failed to parse currencies from Wiki page!");
+        return Collections.emptyList();
     }
 
     private List<Currency> parseTable(Element table) {

@@ -8,8 +8,11 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class LogController {
 
-    @Autowired
-    private LoggingService loggingService;    
+    private LoggingService loggingService;
+
+    public LogController(@Autowired LoggingService loggingService) {
+        this.loggingService = loggingService;
+    }
 
     @GetMapping("log")
     public ModelAndView getLog() {

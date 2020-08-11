@@ -8,4 +8,8 @@ public class CurrencyRegistryError extends RuntimeException {
         super(message);
     }
 
+    public CurrencyRegistryError(String message, Throwable e) {
+        super(message, e);
+    }
+
 }

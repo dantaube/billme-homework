@@ -8,12 +8,15 @@ import com.billme.currency.registry.errors.InvalidCurrencyCodeException;
 @Service
 class CurrencyService {
 
-    @Autowired
     private CurrencyRegistry registry;
+
+    CurrencyService(@Autowired CurrencyRegistry registry) {
+        this.registry = registry;
+    }
 
     CurrencyDto getCurrency(String code) {
         Currency currency = registry.getCurrency(code);
-        if(currency == null) {
+        if (currency == null) {
             throw new InvalidCurrencyCodeException(code);
         }
         return toDto(currency);
